@@ -16,6 +16,7 @@ public:
 
 private:
     bool IsCellOutside();
+    void RotateBlock();
     std::vector<Block> blocks;
     Block currentBlock;
     Block nextBlock;
