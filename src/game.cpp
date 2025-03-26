@@ -6,6 +6,7 @@ Game::Game() {
     blocks = GetBlocks();
     currentBlock = GetRandomBlock();
     nextBlock = GetRandomBlock();
+    gameOver = false;
 }
 
 Block Game::GetRandomBlock() {
@@ -64,7 +65,8 @@ void Game::MoveBlockRight()
 void Game::MoveBlockDown()
 {
     currentBlock.Move(1, 0);
-    if(IsCellOutside() || BlockFits() == false) {
+    if (IsCellOutside() || BlockFits() == false)
+    {
         currentBlock.Move(-1, 0);
         LockBlock();
     }
@@ -97,7 +99,12 @@ void Game::LockBlock()
         grid.grid[item.column][item.row] = currentBlock.id;
     }
     currentBlock = nextBlock;
+    if (BlockFits() == false)
+    {
+        gameOver = true;
+    }
     nextBlock = GetRandomBlock();
+    grid.ClearFullRows();
 }
 
 bool Game::BlockFits()
